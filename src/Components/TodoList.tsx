@@ -1,12 +1,14 @@
 import {
   Button,
   Container,
+  IconButton,
   List,
   ListItem,
   Stack,
   Typography,
 } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
+import DeleteIcon from "@mui/icons-material/Delete";
 import useStore from "../useStore";
 
 const TodoList = () => {
@@ -52,13 +54,29 @@ const TodoList = () => {
                 {todo.description}
               </Typography>
               <Typography color="error">{todo.id}</Typography>
-              <Button
+
+              <IconButton aria-label="delete">
+                <DeleteIcon />
+              </IconButton>
+
+              {/* <IconButton
+                edge="end"
+                aria-label="delete"
+
+              >
+                <DeleteIcon onClick={() => deleteTodo(todo.id)} />
+              </IconButton> */}
+
+              {/* <Button
                 size="small"
                 variant="outlined"
-                onChange={() => deleteTodo(todo.id)}
+                onClick={() => deleteTodo(todo.id)}
               >
                 Delete
               </Button>
+              <Button variant="outlined" onCLick={() => deleteTodo(todo.id)}>
+                Outlined
+              </Button> */}
             </ListItem>
           ))}
         </List>
