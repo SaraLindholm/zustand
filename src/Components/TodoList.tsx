@@ -53,7 +53,7 @@ const TodoList = () => {
               >
                 {todo.description}
               </Typography>
-              <Typography color="error">{todo.id}</Typography>
+              {/* <Typography color="error">{todo.id}</Typography> */}
 
               <IconButton
                 aria-label="delete"
@@ -61,15 +61,6 @@ const TodoList = () => {
               >
                 <DeleteIcon />
               </IconButton>
-              <Button onClick={() => deleteTodo(todo.id)}>Delete</Button>
-
-              <Button
-                onClick={() => {
-                  alert("clicked");
-                }}
-              >
-                Click me
-              </Button>
 
               {/* <IconButton
                 edge="end"
