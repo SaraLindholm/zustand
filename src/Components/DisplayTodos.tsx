@@ -32,7 +32,15 @@ const DisplayTodos = () => {
         >
           {todoList.map((todo) => (
             <ListItem key={todo.id}>
-              <Card variant="outlined" sx={{ padding: 2, width: "300px" }}>
+              <Card
+                variant="outlined"
+                sx={{
+                  padding: 2,
+                  width: "300px",
+                  justifyItems: "center",
+                  backgroundColor: "#95e5b4",
+                }}
+              >
                 <Typography
                   variant="body1"
                   sx={{
@@ -47,17 +55,17 @@ const DisplayTodos = () => {
                 </p>
                 <p>
                   <Button
-                    sx={{ marginRight: 1 }}
+                    sx={{ marginRight: 15 }}
                     size="small"
                     variant="outlined"
-                    onClick={() => completeTodo(todo.id)}
+                    onChange={() => completeTodo(todo.id)}
                   >
                     Done
                   </Button>
                   <Button
                     size="small"
                     variant="outlined"
-                    onClick={() => deleteTodo(todo.id)}
+                    onChange={() => deleteTodo(todo.id)}
                   >
                     Delete
                   </Button>
