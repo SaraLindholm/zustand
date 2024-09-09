@@ -29,7 +29,7 @@ const ControlTodos = () => {
           label="Describe your task"
           onChange={(event) => setDescription(event.target.value)}
         />
-        <Button variant="contained" type="submit">
+        <Button variant="outlined" type="submit">
           Add to-do
         </Button>
       </Stack>
