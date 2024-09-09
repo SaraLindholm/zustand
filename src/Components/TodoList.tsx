@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Container,
   List,
@@ -24,21 +25,21 @@ const TodoList = () => {
   );
 
   return (
-    <Container>
+    <Container sx={{ marginTop: "20px", bgcolor: "pink" }}>
       <Stack spacing={2} alignItems="center" justifyContent="center">
         <List
           sx={{
-            listStyleType: "none",
+            // listStyleType: "none",
             display: "flex",
             flexDirection: "column",
-            width: "100%",
-            maxWidth: "550px",
+            maxWidth: "100%",
+            // maxWidth: "550px",
             bgcolor: "background.paper",
           }}
         >
           {todoList.length > 0 ? (
             todoList.map((todo) => (
-              <ListItem key={todo.id}>
+              <ListItem sx={{ minWidth: "350px" }} key={todo.id}>
                 <Checkbox onChange={() => completeTodo(todo.id)} edge="start" />
                 <Typography
                   variant="body1"
@@ -68,7 +69,9 @@ const TodoList = () => {
               </ListItem>
             ))
           ) : (
-            <Typography>No todos to display. Please add.</Typography>
+            <Box sx={{ padding: "10px" }}>
+              <Typography>No todos to display. Please add.</Typography>
+            </Box>
           )}
         </List>
         <Button
@@ -77,6 +80,7 @@ const TodoList = () => {
           onClick={() => {
             removeCompleted();
           }}
+          // disabled={!!todo.completed}
         >
           Remove all completed task
         </Button>
