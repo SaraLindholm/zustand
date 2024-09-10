@@ -13,19 +13,24 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import useStore from "../useStore";
 
 const TodoList = () => {
-  const { todoList, deleteTodo, completeTodo, removeCompleted } = useStore(
-    (state) => {
-      return {
-        todoList: state.todoList,
-        deleteTodo: state.deleteTodo,
-        completeTodo: state.completeTodo,
-        removeCompleted: state.removeCompleted,
-      };
-    }
-  );
+  const {
+    todoList,
+    deleteTodo,
+    completeTodo,
+    removeCompleted,
+    setAllToCompleted,
+  } = useStore((state) => {
+    return {
+      todoList: state.todoList,
+      deleteTodo: state.deleteTodo,
+      completeTodo: state.completeTodo,
+      removeCompleted: state.removeCompleted,
+      setAllToCompleted: state.setAllToCompleted,
+    };
+  });
 
   return (
-    <Container sx={{ marginTop: "20px", bgcolor: "pink" }}>
+    <Container sx={{ marginTop: "20px" }}>
       <Stack spacing={2} alignItems="center" justifyContent="center">
         <List
           sx={{
@@ -83,6 +88,14 @@ const TodoList = () => {
           // disabled={!!todo.completed}
         >
           Remove all completed task
+        </Button>
+        <Button
+          variant="outlined"
+          onClick={() => {
+            setAllToCompleted();
+          }}
+        >
+          Mark all Todo as Completed
         </Button>
       </Stack>
     </Container>

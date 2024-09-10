@@ -9,13 +9,15 @@ interface Todo {
   //state active/completed /deleted
 }
 
-//intercae för.. funktionen/state?Zustand
+//interfacae för.. funktionen/state?Zustand
 interface Props {
   todoList: Todo[];
   addTodo: (text: string, description?: string) => void;
   completeTodo: (id: number) => void;
   deleteTodo: (id: number) => void;
-  removeCompleted (): void;
+  removeCompleted(): void;
+  setAllToCompleted(): void;
+  // displayDeletedTodo (): void;
 }
 const useStore = create<Props>((set) => ({
   todoList: [],
@@ -34,6 +36,9 @@ const useStore = create<Props>((set) => ({
       ],
     })),
 
+  // upDateDescription: (event) {
+  //   todoList.description= event.target.value; }
+
   //mapar igenom samtliga todos och tar ID som argument.  Setfunktionen tar de spefika värdet i state (specifikt id) som argument och returernar sedan ett nytt state. state.todoList  är den aktuella listan som  mappas ut. En spred görs för att komma åt det specfika värdet. ("!" ändrar värdet i todo.complete från false till true.) om värdet inte överrenstämmer === så gös det som är efter : dvs, todo returneras oförändrat.
   completeTodo: (id: number) =>
     set((state) => ({
@@ -42,6 +47,19 @@ const useStore = create<Props>((set) => ({
       ),
     })),
 
+  setAllToCompleted: () =>
+    set((state) => ({
+      todoList: state.todoList.map((todo) => ({ ...todo, completed: true })),
+    })),
+
+  // setAllToCompleted: () =>
+  //   set((state) => ({
+  //     todoList: state.todoList.map((todo) =>
+  //       todo.id === id ? {...todo, completed: todo.completed } : todo
+  //     ),
+  //   })),
+
+  //filtrerar igenom todoList och visar bara de som inte är markerade som complete.
   removeCompleted: () =>
     set((state) => ({
       todoList: state.todoList.filter((todo) => !todo.completed),
