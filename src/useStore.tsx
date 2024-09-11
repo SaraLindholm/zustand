@@ -52,12 +52,7 @@ const useStore = create<Props>((set) => ({
       todoList: state.todoList.map((todo) => ({ ...todo, completed: true })),
     })),
 
-  // setAllToCompleted: () =>
-  //   set((state) => ({
-  //     todoList: state.todoList.map((todo) =>
-  //       todo.id === id ? {...todo, completed: todo.completed } : todo
-  //     ),
-  //   })),
+ 
 
   //filtrerar igenom todoList och visar bara de som inte är markerade som complete.
   removeCompleted: () =>

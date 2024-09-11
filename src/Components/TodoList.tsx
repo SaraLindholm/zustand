@@ -11,6 +11,7 @@ import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import useStore from "../useStore";
+import React from "react";
 
 const TodoList = () => {
   const {
@@ -28,6 +29,7 @@ const TodoList = () => {
       setAllToCompleted: state.setAllToCompleted,
     };
   });
+  const canCompleteAnyTasks = todoList.length > 0 && todoList.some((item) => (!item.completed))
 
   return (
     <Container sx={{ marginTop: "20px" }}>
@@ -43,36 +45,48 @@ const TodoList = () => {
           }}
         >
           {todoList.length > 0 ? (
-            todoList.map((todo) => (
-              <ListItem sx={{ minWidth: "350px" }} key={todo.id}>
-                <Checkbox onChange={() => completeTodo(todo.id)} edge="start" />
-                <Typography
-                  variant="body1"
-                  sx={{
-                    marginRight: "20px",
-                    textDecoration: todo.completed ? "line-through" : "none",
-                  }}
-                >
-                  {todo.text}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    textDecoration: todo.completed ? "line-through" : "none",
-                  }}
-                >
-                  {todo.description}
-                </Typography>
-                {/* <Typography color="error">{todo.id}</Typography> */}
+            todoList.map((todo) => {
+              const handleCheckedChange = (
+                _: React.ChangeEvent<HTMLInputElement>,
+                checked: boolean
+              ) => {
+                completeTodo(todo.id);
+              };
+              return (
+                <ListItem sx={{ minWidth: "350px" }} key={todo.id}>
+                  <Checkbox
+                    onChange={handleCheckedChange}
+                    edge="start"
+                    checked={todo.completed}
+                  />
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      marginRight: "20px",
+                      textDecoration: todo.completed ? "line-through" : "none",
+                    }}
+                  >
+                    {todo.text}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      textDecoration: todo.completed ? "line-through" : "none",
+                    }}
+                  >
+                    {todo.description}
+                  </Typography>
+                  {/* <Typography color="error">{todo.id}</Typography> */}
 
-                <IconButton
-                  aria-label="delete"
-                  onClick={() => deleteTodo(todo.id)}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </ListItem>
-            ))
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => deleteTodo(todo.id)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItem>
+              );
+            })
           ) : (
             <Box sx={{ padding: "10px" }}>
               <Typography>No todos to display. Please add.</Typography>
@@ -90,6 +104,7 @@ const TodoList = () => {
           Remove all completed task
         </Button>
         <Button
+          disabled={!canCompleteAnyTasks}
           variant="outlined"
           onClick={() => {
             setAllToCompleted();
