@@ -5,25 +5,25 @@ interface Todo {
   id: number;
   text: string;
   completed: boolean;
-  description?: string;
+  description: string;
   //state active/completed /deleted
 }
 
 //interfacae för.. funktionen/state?Zustand
 interface Props {
   todoList: Todo[];
-  addTodo: (text: string, description?: string) => void;
+  addTodo: (text: string, description: string) => void;
   completeTodo: (id: number) => void;
   deleteTodo: (id: number) => void;
   removeCompleted(): void;
   setAllToCompleted(): void;
-  // displayDeletedTodo (): void;
+  // upDateDescription: (id: number, desscription: string) => void;
 }
+
 const useStore = create<Props>((set) => ({
   todoList: [],
-
   //skapar nya todos i den (från start) tomma arrayen. kollar i state så att tidigare todos följer med och inte overridas.
-  addTodo: (text: string, description?: string) =>
+  addTodo: (text: string, description: string) =>
     set((state) => ({
       todoList: [
         ...state.todoList,
@@ -35,9 +35,6 @@ const useStore = create<Props>((set) => ({
         },
       ],
     })),
-
-  // upDateDescription: (event) {
-  //   todoList.description= event.target.value; }
 
   //mapar igenom samtliga todos och tar ID som argument.  Setfunktionen tar de spefika värdet i state (specifikt id) som argument och returernar sedan ett nytt state. state.todoList  är den aktuella listan som  mappas ut. En spred görs för att komma åt det specfika värdet. ("!" ändrar värdet i todo.complete från false till true.) om värdet inte överrenstämmer === så gös det som är efter : dvs, todo returneras oförändrat.
   completeTodo: (id: number) =>
@@ -52,7 +49,10 @@ const useStore = create<Props>((set) => ({
       todoList: state.todoList.map((todo) => ({ ...todo, completed: true })),
     })),
 
- 
+  // upDateDescription: (id: number, newDescription: string) => set((state) => ({
+  //   todoList: state.todoList.map((todo) =>
+  //   todo.id === id ? {...todo, description: newDescription } : todo),
+  // })),
 
   //filtrerar igenom todoList och visar bara de som inte är markerade som complete.
   removeCompleted: () =>
