@@ -4,26 +4,28 @@ import { create } from "zustand";
 interface Todo {
   id: number;
   text: string;
-  completed: boolean;
   description: string;
+  time: number;
+  completed: boolean;
   //state active/completed /deleted
 }
 
 //interfacae för.. funktionen/state?Zustand
 interface Props {
   todoList: Todo[];
-  addTodo: (text: string, description: string) => void;
+  addTodo: (text: string, description: string, time: number) => void;
   completeTodo: (id: number) => void;
   deleteTodo: (id: number) => void;
   removeCompleted(): void;
   setAllToCompleted(): void;
+  getTotalTime: () => number;
   // upDateDescription: (id: number, desscription: string) => void;
 }
 
-const useStore = create<Props>((set) => ({
+const useStore = create<Props>((set, get) => ({
   todoList: [],
   //skapar nya todos i den (från start) tomma arrayen. kollar i state så att tidigare todos följer med och inte overridas.
-  addTodo: (text: string, description: string) =>
+  addTodo: (text: string, description: string, time: number) =>
     set((state) => ({
       todoList: [
         ...state.todoList,
@@ -31,10 +33,16 @@ const useStore = create<Props>((set) => ({
           id: Date.now(),
           text,
           description,
+          time,
           completed: false,
         },
       ],
     })),
+  //hämtar todoList från zustand. reduce lopar fram ett värde. baserar på totalTime och todo.time. börjar på 0.
+  getTotalTime: () => {
+    const todoList = get().todoList;
+    return todoList.reduce((totalTime, todo) => totalTime + todo.time, 0);
+  },
 
   //mapar igenom samtliga todos och tar ID som argument.  Setfunktionen tar de spefika värdet i state (specifikt id) som argument och returernar sedan ett nytt state. state.todoList  är den aktuella listan som  mappas ut. En spred görs för att komma åt det specfika värdet. ("!" ändrar värdet i todo.complete från false till true.) om värdet inte överrenstämmer === så gös det som är efter : dvs, todo returneras oförändrat.
   completeTodo: (id: number) =>

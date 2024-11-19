@@ -16,6 +16,9 @@ const TodoListContainer = () => {
   const canCompleteAnyTasks =
     todoList.length > 0 && todoList.some((item) => !item.completed);
 
+  const canRemoveCompletedTask =
+    todoList.length > 0 && todoList.some((item) => item.completed);
+
   return (
     <Container sx={{ marginTop: "20px" }}>
       <Stack
@@ -26,13 +29,14 @@ const TodoListContainer = () => {
       >
         <DisplayTodo />
         <Button
+          disabled={!canRemoveCompletedTask}
           variant="outlined"
           endIcon={<DeleteIcon />}
           onClick={() => {
             removeCompleted();
           }}
         >
-          <Typography>Remove all completed task</Typography>
+          <Typography>Ta bort avslutade uppgifter</Typography>
         </Button>
         <Button
           disabled={!canCompleteAnyTasks}
@@ -41,7 +45,7 @@ const TodoListContainer = () => {
             setAllToCompleted();
           }}
         >
-          <Typography>Mark all Todo as Completed.</Typography>
+          <Typography>Markera samtliga uppgifter som avklarade</Typography>
         </Button>
       </Stack>
     </Container>

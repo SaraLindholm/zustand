@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h3>Your own personal shoppingList!</h3>
+        <h3>Din egna To-do lista!</h3>
         <Box>
           <ControlTodos />
           <TodoList />
