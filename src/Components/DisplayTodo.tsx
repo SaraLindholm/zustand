@@ -13,10 +13,10 @@ const DisplayTodo = () => {
     completeTodo: state.completeTodo,
     // upDateDescription: state.upDateDescription,
   }));
+  const getTotalTime = useStore((state) => state.getTotalTime);
 
   return (
     <>
-
       <List
         sx={{
           display: "flex",
@@ -24,8 +24,19 @@ const DisplayTodo = () => {
           maxWidth: "100%",
           bgcolor: "background.paper",
           border: 1,
+          margin: 1,
+          padding: 3,
         }}
       >
+        <Box
+          sx={{
+            margin: 1,
+          }}
+        >
+          <Typography variant="body1">
+            Estimerad tid för alla uppgifter: {getTotalTime()} Minuter
+          </Typography>
+        </Box>
         {todoList.length > 0 ? (
           todoList.map((todo) => {
             const handleCheckedChange = (

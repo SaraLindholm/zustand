@@ -10,7 +10,7 @@ interface Todo {
   //state active/completed /deleted
 }
 
-//interfacae för.. funktionen/state?Zustand
+//interfacae för storen
 interface Props {
   todoList: Todo[];
   addTodo: (text: string, description: string, time: number) => void;
@@ -38,11 +38,6 @@ const useStore = create<Props>((set, get) => ({
         },
       ],
     })),
-  //hämtar todoList från zustand. reduce lopar fram ett värde. baserar på totalTime och todo.time. börjar på 0.
-  getTotalTime: () => {
-    const todoList = get().todoList;
-    return todoList.reduce((totalTime, todo) => totalTime + todo.time, 0);
-  },
 
   //mapar igenom samtliga todos och tar ID som argument.  Setfunktionen tar de spefika värdet i state (specifikt id) som argument och returernar sedan ett nytt state. state.todoList  är den aktuella listan som  mappas ut. En spred görs för att komma åt det specfika värdet. ("!" ändrar värdet i todo.complete från false till true.) om värdet inte överrenstämmer === så gös det som är efter : dvs, todo returneras oförändrat.
   completeTodo: (id: number) =>
@@ -73,6 +68,11 @@ const useStore = create<Props>((set, get) => ({
     set((state) => ({
       todoList: state.todoList.filter((todo) => todo.id !== id),
     })),
+  //hämtar todoList från zustand. reduce lopar fram ett värde. baserar på totalTime och todo.time. börjar på 0.
+  getTotalTime: () => {
+    const todoList = get().todoList;
+    return todoList.reduce((totalTime, todo) => totalTime + todo.time, 0);
+  },
 }));
 
 export default useStore;

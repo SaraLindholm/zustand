@@ -1,10 +1,9 @@
 import { useState, FormEvent } from "react";
 import useStore from "../useStore";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 
 const ControlTodos = () => {
   // const TodoList = useStore((state) => state.todoList);
-  const getTotalTime = useStore((state) => state.getTotalTime);
   const addTodo = useStore((state) => state.addTodo);
   const [text, setText] = useState("");
   const [description, setDescription] = useState("");
@@ -62,19 +61,6 @@ const ControlTodos = () => {
           </Button>
         </Box>
       </form>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          bgcolor: "background.paper",
-          margin: 1,
-          border: 1,
-        }}
-      >
-        <Typography variant="body1">
-          Estimerad tid för alla uppgifter: {getTotalTime()} Minuter
-        </Typography>
-      </Box>
     </>
   );
 };
